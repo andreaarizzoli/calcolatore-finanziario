@@ -1,6 +1,6 @@
 {
   "name": "calcolatore-finanziario",
-  "homepage": "calcolatore",
+  "homepage": "https://andreaarizzoli.github.io/calcolatore-finanziario",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
