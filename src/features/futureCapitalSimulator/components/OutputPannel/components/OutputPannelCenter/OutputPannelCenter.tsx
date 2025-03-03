@@ -75,7 +75,7 @@ const OutputPannelCenter: FC<OutputPannelCenterProps> = ({ inputData }) => {
           (initialAmount +
             partialContribuitionLastYear +
             partialInterestLastYear) *
-            0.08 +
+            (expectedAnnualNetReturn / 100) +
           partialInterestLastYear;
         partialInterestLastYear = partialInterestCurrentYear;
         partialContribuitionLastYear = partialContributionCurrentYear;
@@ -148,13 +148,6 @@ const OutputPannelCenter: FC<OutputPannelCenterProps> = ({ inputData }) => {
       height: 430,
       stack: true,
       colorField: "type",
-      // label: {
-      //   text: "value",
-      //   textBaseline: "bottom",
-      //   position: "inside",
-      // },
-
-      tooltip: { items: [{ "capitale iniziale": "y" }, { channel: "x" }] },
       annotations,
       scale: { color: { palette: "blues" } },
       animate: { enter: { type: "fadeIn" } },
