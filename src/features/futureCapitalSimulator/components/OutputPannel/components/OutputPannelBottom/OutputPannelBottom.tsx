@@ -12,6 +12,7 @@ const OutputPannelBottom: FC<OutputPannelBottomProps> = ({ inputData }) => {
     initialAmount,
     totalContributions,
     vestmentHorizon,
+    isValidate,
   } = useOutputPannel({ inputData });
 
   return (
@@ -21,27 +22,27 @@ const OutputPannelBottom: FC<OutputPannelBottomProps> = ({ inputData }) => {
           <LabelBox
             divider
             title="Capitale Iniziale"
-            value={formatEuro(initialAmount)}
+            value={isValidate ? formatEuro(initialAmount) : "-"}
           />
         </Col>
         <Col span={6}>
           <LabelBox
             divider
             title="Versamenti aggiuntivi "
-            value={formatEuro(totalContributions)}
+            value={isValidate ? formatEuro(totalContributions) : "-"}
           />
         </Col>
         <Col span={6}>
           <LabelBox
             divider
             title="Orizzonte"
-            value={formatYear(vestmentHorizon)}
+            value={isValidate ? formatYear(vestmentHorizon) : "-"}
           />
         </Col>
         <Col span={6}>
           <LabelBox
             title="Rendimento Annuo atteso"
-            value={formatPercent(expectedAnnualNetReturn)}
+            value={isValidate ? formatPercent(expectedAnnualNetReturn) : "-"}
           />
         </Col>
       </Row>

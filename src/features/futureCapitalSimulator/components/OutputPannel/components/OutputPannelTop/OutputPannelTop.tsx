@@ -11,10 +11,15 @@ export type OutputPannelTopProps = {
 
 const OutputPannelTop: FC<OutputPannelTopProps> = ({ inputData }) => {
   const { formatEuro, formatPercent } = useFormat();
-  const { totalInvested, accruedInterest, endCapital, accruedInterestPerc } =
-    useOutputPannel({
-      inputData,
-    });
+  const {
+    totalInvested,
+    accruedInterest,
+    endCapital,
+    accruedInterestPerc,
+    isValidate,
+  } = useOutputPannel({
+    inputData,
+  });
 
   return (
     <Card>
@@ -23,27 +28,27 @@ const OutputPannelTop: FC<OutputPannelTopProps> = ({ inputData }) => {
           <LabelBox
             divider
             title="Capitale Investito"
-            value={formatEuro(totalInvested)}
+            value={isValidate ? formatEuro(totalInvested) : "-"}
           />
         </Col>
         <Col span={6}>
           <LabelBox
             divider
             title="Capitale Finale"
-            value={formatEuro(endCapital)}
+            value={isValidate ? formatEuro(endCapital) : "-"}
           />
         </Col>
         <Col span={6}>
           <LabelBox
             divider
             title="Rendimento Lordo"
-            value={formatEuro(accruedInterest)}
+            value={isValidate ? formatEuro(accruedInterest) : "-"}
           />
         </Col>
         <Col span={6}>
           <LabelBox
             title="Rendimento Lordo %"
-            value={formatPercent(accruedInterestPerc)}
+            value={isValidate ? formatPercent(accruedInterestPerc) : "-"}
           />
         </Col>
       </Row>

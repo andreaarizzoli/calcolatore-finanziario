@@ -14,6 +14,22 @@ export const useOutputPannel = ({ inputData }: useOutputPannelProps) => {
     expectedAnnualNetReturn = 0,
   } = inputData || {};
 
+  const isValidate = useMemo(() => {
+    return (
+      !!contributionAmount &&
+      !!contributionFrequencyType &&
+      !!vestmentHorizon &&
+      !!expectedAnnualNetReturn &&
+      initialAmount >= 0
+    );
+  }, [
+    initialAmount,
+    contributionAmount,
+    contributionFrequencyType,
+    vestmentHorizon,
+    expectedAnnualNetReturn,
+  ]);
+
   const yearlyContribution = useMemo(() => {
     return contributionFrequencyType === "monthly"
       ? contributionAmount * 12
@@ -33,21 +49,13 @@ export const useOutputPannel = ({ inputData }: useOutputPannelProps) => {
   }, [totalContributions, initialAmount]);
 
   const endCapital = useMemo(() => {
-    if (
-      initialAmount &&
-      expectedAnnualNetReturn &&
-      vestmentHorizon &&
-      contributionAmount
-    ) {
-      const annualRate = expectedAnnualNetReturn / 100;
-      const capitalIniziale =
-        initialAmount * Math.pow(1 + annualRate, vestmentHorizon);
-      const versamentiMensili =
-        yearlyContribution *
-        ((Math.pow(1 + annualRate, vestmentHorizon) - 1) / annualRate);
-      return capitalIniziale + versamentiMensili;
-    }
-    return "-";
+    const annualRate = expectedAnnualNetReturn / 100;
+    const capitalIniziale =
+      initialAmount * Math.pow(1 + annualRate, vestmentHorizon);
+    const versamentiMensili =
+      yearlyContribution *
+      ((Math.pow(1 + annualRate, vestmentHorizon) - 1) / annualRate);
+    return capitalIniziale + versamentiMensili;
   }, [
     initialAmount,
     expectedAnnualNetReturn,
@@ -79,5 +87,6 @@ export const useOutputPannel = ({ inputData }: useOutputPannelProps) => {
     accruedInterest,
     endCapital,
     accruedInterestPerc,
+    isValidate,
   };
 };

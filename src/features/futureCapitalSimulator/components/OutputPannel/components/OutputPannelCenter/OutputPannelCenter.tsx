@@ -1,31 +1,8 @@
 import { Column } from "@ant-design/charts";
-import { Card } from "antd";
+import { Card, Empty } from "antd";
 import { FC, useCallback, useEffect, useMemo, useState } from "react";
-import { FutureCapitalInputDataType } from "../../../InputPannel/types";
 import { useOutputPannel } from "../../hooks.ts";
-
-interface DataItem {
-  year: string;
-  value: number;
-  type: string;
-}
-
-interface Annotation {
-  type: string;
-  data: [string, number];
-  style: {
-    textAlign: string;
-    fontSize: number;
-    fill: string;
-  };
-  xField: string;
-  yField: string;
-  tooltip: boolean;
-}
-
-export type OutputPannelCenterProps = {
-  inputData?: FutureCapitalInputDataType;
-};
+import { Annotation, DataItem, OutputPannelCenterProps } from "./types";
 
 const OutputPannelCenter: FC<OutputPannelCenterProps> = ({ inputData }) => {
   const {
@@ -34,23 +11,17 @@ const OutputPannelCenter: FC<OutputPannelCenterProps> = ({ inputData }) => {
     contributionAmount,
     contributionFrequencyType,
     expectedAnnualNetReturn,
+    isValidate,
   } = useOutputPannel({ inputData });
   const [data, setData] = useState<DataItem[]>([]);
 
   useEffect(() => {
     getTableData();
-  }, [
-    vestmentHorizon,
-    initialAmount,
-    contributionAmount,
-    contributionFrequencyType,
-    expectedAnnualNetReturn,
-  ]);
+  }, [inputData]);
 
   const getTableData = useCallback(() => {
     if (
       vestmentHorizon &&
-      initialAmount &&
       contributionAmount &&
       contributionFrequencyType &&
       expectedAnnualNetReturn
@@ -157,7 +128,7 @@ const OutputPannelCenter: FC<OutputPannelCenterProps> = ({ inputData }) => {
 
   return (
     <Card>
-      <Column {...config} />;
+      {isValidate ? <Column {...config} /> : <Empty style={{ height: 430 }} />};
     </Card>
   );
 };
