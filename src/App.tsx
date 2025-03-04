@@ -5,12 +5,15 @@ import { BrowserRouter, Route, Routes } from "react-router-dom";
 function App() {
   return (
     <div className="App">
-      <BrowserRouter>
+      {
+        //TODO: Aggiugnere Routes
+      }
+      {/* <BrowserRouter>
         <Routes>
           <Route path="/" element={<Dashboard />} />
-          <Route path="calcolatore-finanziario" element={<Dashboard />} />
         </Routes>
       </BrowserRouter>
+      <Dashboard /> */}
       <Dashboard />
     </div>
   );

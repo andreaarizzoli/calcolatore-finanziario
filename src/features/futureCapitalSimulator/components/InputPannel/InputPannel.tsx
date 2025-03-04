@@ -12,6 +12,7 @@ const InputPannel: FC<InputPannelType> = ({ onSendData }) => {
     inputData,
     isCustomVestmentHorizon,
     isExpectedAnnualNetReturn,
+    inputSize,
     handleOnChange,
     handleExpectedAnnualNetReturn,
     handleVestmentHorizon,
@@ -27,7 +28,7 @@ const InputPannel: FC<InputPannelType> = ({ onSendData }) => {
         <Form.Item
           label="Capitale iniziale"
           help="Inserisci il capitale iniziale. Può anche essere zero."
-          style={{ paddingBottom: "24px" }}
+          style={{ paddingBottom: "24px", fontSize: "12px !important" }}
         >
           <InputNumber
             addonBefore="€"
@@ -36,6 +37,7 @@ const InputPannel: FC<InputPannelType> = ({ onSendData }) => {
             onChange={(val) => handleOnChange("initialAmount", val ?? 0)}
             min={0}
             style={{ width: "100%" }}
+            size={inputSize}
           />
         </Form.Item>
         <Divider />
@@ -54,6 +56,7 @@ const InputPannel: FC<InputPannelType> = ({ onSendData }) => {
               }
               style={{ width: "100%" }}
               options={contributionFrequencyTypeOptions}
+              size={inputSize}
             />
           </Form.Item>
           <Form.Item
@@ -67,6 +70,7 @@ const InputPannel: FC<InputPannelType> = ({ onSendData }) => {
               onChange={(val) => handleOnChange("contributionAmount", val ?? 0)}
               min={0}
               style={{ width: "100%" }}
+              size={inputSize}
             />
           </Form.Item>
         </Flex>
@@ -95,6 +99,7 @@ const InputPannel: FC<InputPannelType> = ({ onSendData }) => {
                 optionType="button"
                 style={{ width: "100%" }}
                 options={vestmentHorizonOptions}
+                size={inputSize}
               />
             </Flex>
             <Radio.Group
@@ -104,6 +109,7 @@ const InputPannel: FC<InputPannelType> = ({ onSendData }) => {
               optionType="button"
               style={{ width: "100%", textAlign: "left" }}
               options={[{ label: "Personalizzato", value: "custom" }]}
+              size={inputSize}
             />
             <InputNumber
               type="number"
@@ -114,6 +120,7 @@ const InputPannel: FC<InputPannelType> = ({ onSendData }) => {
               }
               onChange={(val) => handleVestmentHorizon(true, val ?? 0)}
               style={{ width: "100%" }}
+              size={inputSize}
               disabled={!isCustomVestmentHorizon}
             />
           </Flex>
@@ -144,6 +151,7 @@ const InputPannel: FC<InputPannelType> = ({ onSendData }) => {
                   display: "flex",
                   flexDirection: "row",
                 }}
+                size={inputSize}
                 options={[
                   {
                     label: (
@@ -204,6 +212,7 @@ const InputPannel: FC<InputPannelType> = ({ onSendData }) => {
               optionType="button"
               style={{ width: "100%", textAlign: "left" }}
               options={[{ label: "Personalizzato", value: "custom" }]}
+              size={inputSize}
             />
             <InputNumber<number>
               min={0}
@@ -217,6 +226,7 @@ const InputPannel: FC<InputPannelType> = ({ onSendData }) => {
               }
               onChange={(val) => handleExpectedAnnualNetReturn(true, val ?? 0)}
               style={{ width: "100%" }}
+              size={inputSize}
               disabled={!isExpectedAnnualNetReturn}
             />
           </Flex>
