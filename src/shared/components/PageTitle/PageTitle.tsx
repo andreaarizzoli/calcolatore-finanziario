@@ -1,14 +1,14 @@
-import { FC } from "react";
-import { TitleProps } from "./types";
 import { Divider, Flex, Typography } from "antd";
-import { containerStyle } from "./style";
+import { FC } from "react";
+import { TextStyled, TitleStyled } from "./style";
+import { TitleProps } from "./types";
 const { Title, Text } = Typography;
 
 const PageTitle: FC<TitleProps> = ({ title, subTitle }) => {
   return (
-    <Flex style={containerStyle} align="start" vertical>
-      <Title level={3}>{title}</Title>
-      <Text type="secondary">{subTitle}</Text>
+    <Flex align="start" vertical>
+      <TitleStyled level={3}>{title}</TitleStyled>
+      <TextStyled type="secondary">{subTitle}</TextStyled>
       <Divider />
     </Flex>
   );

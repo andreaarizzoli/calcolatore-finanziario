@@ -12,7 +12,7 @@ type UseMobile = () => UseMobileResponse;
 
 type VoidEvent = () => void;
 
-const breakpoints = {
+export const breakpoints = {
   mobile: 600,
   tablet: 1024,
   desktopLow: 1200,
