@@ -20,7 +20,7 @@ const InputPannel: FC<InputPannelType> = ({ onSendData }) => {
 
   useEffect(() => {
     onSendData(inputData);
-  }, [inputData]);
+  }, [inputData, onSendData]);
 
   return (
     <Card style={{ width: "100%", textAlign: "left" }}>

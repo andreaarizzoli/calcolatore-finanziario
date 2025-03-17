@@ -1,1 +1,1 @@
-export * from "./LabelBox";
+export * from "./LabelBoxCard";

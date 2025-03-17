@@ -1,4 +1,4 @@
 import PageTitle from "./PageTitle/PageTitle";
-import LabelBox from "./LabelBox/LabelBox";
+import LabelBoxCard from "./LabelBox/LabelBoxCard";
 
-export { PageTitle as Title, LabelBox };
+export { PageTitle as Title, LabelBoxCard };

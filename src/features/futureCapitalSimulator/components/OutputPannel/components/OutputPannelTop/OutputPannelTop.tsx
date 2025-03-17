@@ -1,6 +1,6 @@
-import { Card, Col, Row } from "antd";
+import { Card } from "antd";
 import { FC } from "react";
-import { LabelBox } from "../../../../../../shared/components";
+import { LabelBoxCard } from "../../../../../../shared/components";
 import { useFormat } from "../../../../../../shared/utils/hooks";
 import { FutureCapitalInputDataType } from "../../../InputPannel/types";
 import { useOutputPannel } from "../../hooks.ts";
@@ -23,35 +23,26 @@ const OutputPannelTop: FC<OutputPannelTopProps> = ({ inputData }) => {
 
   return (
     <Card>
-      <Row>
-        <Col span={6}>
-          <LabelBox
-            divider
-            title="Capitale Investito"
-            value={isValidate ? formatEuro(totalInvested) : "-"}
-          />
-        </Col>
-        <Col span={6}>
-          <LabelBox
-            divider
-            title="Capitale Finale"
-            value={isValidate ? formatEuro(endCapital) : "-"}
-          />
-        </Col>
-        <Col span={6}>
-          <LabelBox
-            divider
-            title="Rendimento Lordo"
-            value={isValidate ? formatEuro(accruedInterest) : "-"}
-          />
-        </Col>
-        <Col span={6}>
-          <LabelBox
-            title="Rendimento Lordo %"
-            value={isValidate ? formatPercent(accruedInterestPerc) : "-"}
-          />
-        </Col>
-      </Row>
+      <LabelBoxCard
+        labelList={[
+          {
+            title: "Capitale Investito",
+            value: isValidate ? formatEuro(totalInvested) : "-",
+          },
+          {
+            title: "Capitale Finale",
+            value: isValidate ? formatEuro(endCapital) : "-",
+          },
+          {
+            title: "Rendimento Lordo",
+            value: isValidate ? formatEuro(accruedInterest) : "-",
+          },
+          {
+            title: "Rendimento Lordo %",
+            value: isValidate ? formatPercent(accruedInterestPerc) : "-",
+          },
+        ]}
+      />
     </Card>
   );
 };

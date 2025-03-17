@@ -1,4 +1,4 @@
-import React, { useMemo } from "react";
+import { useMemo } from "react";
 import { FutureCapitalInputDataType } from "../../InputPannel/types";
 
 export type useOutputPannelProps = {
@@ -40,7 +40,7 @@ export const useOutputPannel = ({ inputData }: useOutputPannelProps) => {
     return contributionAmount && vestmentHorizon
       ? yearlyContribution * vestmentHorizon
       : "-";
-  }, [yearlyContribution, vestmentHorizon]);
+  }, [yearlyContribution, vestmentHorizon, contributionAmount]);
 
   const totalInvested = useMemo(() => {
     return typeof totalContributions === "number"

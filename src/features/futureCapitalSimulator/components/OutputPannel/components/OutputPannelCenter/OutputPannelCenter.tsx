@@ -15,10 +15,6 @@ const OutputPannelCenter: FC<OutputPannelCenterProps> = ({ inputData }) => {
   } = useOutputPannel({ inputData });
   const [data, setData] = useState<DataItem[]>([]);
 
-  useEffect(() => {
-    getTableData();
-  }, [inputData]);
-
   const getTableData = useCallback(() => {
     if (
       vestmentHorizon &&
@@ -79,6 +75,9 @@ const OutputPannelCenter: FC<OutputPannelCenterProps> = ({ inputData }) => {
     contributionFrequencyType,
     expectedAnnualNetReturn,
   ]);
+  useEffect(() => {
+    getTableData();
+  }, [inputData, getTableData]);
 
   const groupedData = useMemo(() => {
     return data.reduce<{ [key: string]: DataItem[] }>((acc, item) => {
