@@ -127,7 +127,7 @@ const OutputPannelCenter: FC<OutputPannelCenterProps> = ({ inputData }) => {
 
   return (
     <Card>
-      {isValidate ? <Column {...config} /> : <Empty style={{ height: 430 }} />};
+      {isValidate ? <Column {...config} /> : <Empty style={{ height: 430 }} />}
     </Card>
   );
 };

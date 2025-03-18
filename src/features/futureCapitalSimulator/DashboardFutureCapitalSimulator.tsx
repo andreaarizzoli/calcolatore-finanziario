@@ -5,7 +5,7 @@ import InputPannel from "./components/InputPannel/InputPannel";
 import { FutureCapitalInputDataType } from "./components/InputPannel/types";
 import OutputPannel from "./components/OutputPannel/OutputPannel";
 
-const Dashboard = () => {
+const DashboardFutureCapitalSimulator = () => {
   const [inputData, setInputData] = useState<FutureCapitalInputDataType>();
 
   return (
@@ -33,4 +33,4 @@ const Dashboard = () => {
   );
 };
 
-export default Dashboard;
+export default DashboardFutureCapitalSimulator;
