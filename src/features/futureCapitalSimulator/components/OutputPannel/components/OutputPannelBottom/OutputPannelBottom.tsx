@@ -16,28 +16,26 @@ const OutputPannelBottom: FC<OutputPannelBottomProps> = ({ inputData }) => {
   } = useOutputPannel({ inputData });
 
   return (
-    <Card>
-      <LabelBoxCard
-        labelList={[
-          {
-            title: "Capitale Iniziale",
-            value: isValidate ? formatEuro(initialAmount) : "-",
-          },
-          {
-            title: "Versamenti aggiuntivi",
-            value: isValidate ? formatEuro(totalContributions) : "-",
-          },
-          {
-            title: "Orizzonte",
-            value: isValidate ? formatYear(vestmentHorizon) : "-",
-          },
-          {
-            title: "Rendimento Annuo atteso",
-            value: isValidate ? formatPercent(expectedAnnualNetReturn) : "-",
-          },
-        ]}
-      />
-    </Card>
+    <LabelBoxCard
+      labelList={[
+        {
+          title: "Capitale Iniziale",
+          value: isValidate ? formatEuro(initialAmount) : "-",
+        },
+        {
+          title: "Versamenti aggiuntivi",
+          value: isValidate ? formatEuro(totalContributions) : "-",
+        },
+        {
+          title: "Orizzonte",
+          value: isValidate ? formatYear(vestmentHorizon) : "-",
+        },
+        {
+          title: "Rendimento Annuo atteso",
+          value: isValidate ? formatPercent(expectedAnnualNetReturn) : "-",
+        },
+      ]}
+    />
   );
 };
 

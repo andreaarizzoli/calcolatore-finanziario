@@ -22,28 +22,26 @@ const OutputPannelTop: FC<OutputPannelTopProps> = ({ inputData }) => {
   });
 
   return (
-    <Card>
-      <LabelBoxCard
-        labelList={[
-          {
-            title: "Capitale Investito",
-            value: isValidate ? formatEuro(totalInvested) : "-",
-          },
-          {
-            title: "Capitale Finale",
-            value: isValidate ? formatEuro(endCapital) : "-",
-          },
-          {
-            title: "Rendimento Lordo",
-            value: isValidate ? formatEuro(accruedInterest) : "-",
-          },
-          {
-            title: "Rendimento Lordo %",
-            value: isValidate ? formatPercent(accruedInterestPerc) : "-",
-          },
-        ]}
-      />
-    </Card>
+    <LabelBoxCard
+      labelList={[
+        {
+          title: "Capitale Investito",
+          value: isValidate ? formatEuro(totalInvested) : "-",
+        },
+        {
+          title: "Capitale Finale",
+          value: isValidate ? formatEuro(endCapital) : "-",
+        },
+        {
+          title: "Rendimento Lordo",
+          value: isValidate ? formatEuro(accruedInterest) : "-",
+        },
+        {
+          title: "Rendimento Lordo %",
+          value: isValidate ? formatPercent(accruedInterestPerc) : "-",
+        },
+      ]}
+    />
   );
 };
 
