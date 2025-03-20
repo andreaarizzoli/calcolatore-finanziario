@@ -1,133 +1,150 @@
-import { Column } from "@ant-design/charts";
-import { Card, Empty } from "antd";
+import { Card, Empty, Typography } from "antd";
 import { FC, useCallback, useEffect, useMemo, useState } from "react";
+import {
+  Bar,
+  BarChart,
+  CartesianGrid,
+  Legend,
+  ResponsiveContainer,
+  Tooltip,
+  XAxis,
+  YAxis,
+} from "recharts";
+import { useFormat } from "../../../../../../shared/utils/hooks/useFormat";
 import { useOutputPannel } from "../../hooks.ts";
-import { Annotation, DataItem, OutputPannelCenterProps } from "./types";
+import { DataItemChart, OutputPannelCenterProps } from "./types";
 
 const OutputPannelCenter: FC<OutputPannelCenterProps> = ({ inputData }) => {
-  const {
-    vestmentHorizon,
-    initialAmount,
-    contributionAmount,
-    contributionFrequencyType,
-    expectedAnnualNetReturn,
-    isValidate,
-  } = useOutputPannel({ inputData });
-  const [data, setData] = useState<DataItem[]>([]);
+  const { isValidate, calculateDataChart } = useOutputPannel({ inputData });
 
-  const getTableData = useCallback(() => {
-    if (
-      vestmentHorizon &&
-      contributionAmount &&
-      contributionFrequencyType &&
-      expectedAnnualNetReturn
-    ) {
-      let partialContributionCurrentYear = 0; //versamento annuo
-      let partialContribuitionLastYear = 0; //versamento anno precedente
-      let partialInterestCurrentYear = 0; //Interesse maturato (calcolo su capitale iniziale + versamento anno precedente)
-      let partialInterestLastYear = 0; //Interesse anno precedente
-      let partialCapitalCurrentYear = initialAmount; //Capitale anno in corso
+  const { formatEuro, formatEuroChart } = useFormat();
+  const [data, setData] = useState<DataItemChart[]>([]);
 
-      const tableData = Array.from({ length: vestmentHorizon }, (_, index) => {
-        // Aggiornamento del capitale con il versamento
-        partialCapitalCurrentYear += partialContributionCurrentYear;
-
-        // Aggiornamento dei versamenti per l'anno corrente
-        partialContributionCurrentYear +=
-          contributionAmount *
-          (contributionFrequencyType === "monthly" ? 12 : 1);
-
-        // Calcolo degli interessi ((capitale iniziale + versamento anno precedente + interesse anno precedente)*0,08) + interesse anno precedente
-        partialInterestCurrentYear =
-          (initialAmount +
-            partialContribuitionLastYear +
-            partialInterestLastYear) *
-            (expectedAnnualNetReturn / 100) +
-          partialInterestLastYear;
-        partialInterestLastYear = partialInterestCurrentYear;
-        partialContribuitionLastYear = partialContributionCurrentYear;
-
-        const rowData = [
-          {
-            year: `${index + 1}`,
-            value: initialAmount,
-            type: "Capitale iniziale",
-          },
-          {
-            year: `${index + 1}`,
-            value: partialContributionCurrentYear,
-            type: "Versamenti",
-          },
-          {
-            year: `${index + 1}`,
-            value: Math.round(partialInterestCurrentYear),
-            type: "Interessi",
-          },
-        ];
-        return rowData;
-      }).flat();
-      setData(tableData);
-    }
-  }, [
-    vestmentHorizon,
-    initialAmount,
-    contributionAmount,
-    contributionFrequencyType,
-    expectedAnnualNetReturn,
-  ]);
   useEffect(() => {
-    getTableData();
-  }, [inputData, getTableData]);
+    const tableData = calculateDataChart();
+    setData(tableData);
+  }, [inputData, calculateDataChart]);
 
-  const groupedData = useMemo(() => {
-    return data.reduce<{ [key: string]: DataItem[] }>((acc, item) => {
-      if (!acc[item.year]) {
-        acc[item.year] = [];
-      }
-      acc[item.year].push(item);
-      return acc;
-    }, {});
-  }, [data]);
+  const CustomTooltip = useCallback(
+    ({ active, payload, label }: any) => {
+      if (!active || !payload?.length) return null;
 
-  const annotations = useMemo(() => {
-    const result: Annotation[] = [];
-    for (const year in groupedData) {
-      const values = groupedData[year];
-      const totalValue = values.reduce((sum, item) => sum + item.value, 0);
-      result.push({
-        type: "text",
-        data: [year, totalValue],
-        style: {
-          textAlign: "center",
-          fontSize: 14,
-          fill: "rgba(1, 0, 0, 0.85)",
-        },
-        xField: "year",
-        yField: "value",
-        tooltip: false,
-      });
-    }
-    return result;
-  }, [groupedData]);
+      return (
+        <div
+          className="custom-tooltip"
+          style={{
+            width: "200px",
+            backgroundColor: "white",
+            padding: "0 20px 20px 20px",
+            borderRadius: "5px",
+            border: "1px solid #ccc",
+          }}
+        >
+          <p>
+            <Typography.Title level={5}>Anno {label} </Typography.Title>
+          </p>
+          {[
+            {
+              color: "#1890ff",
+              label: "Interessi",
+              value: payload[2].value,
+            },
+            {
+              color: "#f0f0f0",
+              label: "Versamenti",
+              value: payload[1].value,
+            },
+            {
+              color: "#d9d9d9",
+              label: "Capitale iniziale",
+              value: payload[0].value,
+            },
+          ].map(({ color, label, value }, index) => (
+            <div
+              key={index}
+              style={{
+                display: "flex",
+                justifyContent: "space-between",
+                width: "100%",
+                alignItems: "bottom",
+              }}
+            >
+              <div>
+                <div
+                  style={{
+                    width: "10px",
+                    height: "10px",
+                    backgroundColor: color,
+                    marginRight: "5px",
+                    display: "inline-block",
+                  }}
+                />
+                <span>{label}:</span>
+              </div>
+              <span>{formatEuro(value)}</span>
+            </div>
+          ))}
+        </div>
+      );
+    },
+    [formatEuro]
+  );
 
-  const config = useMemo(
-    () => ({
-      data,
-      xField: "year",
-      yField: "value",
-      height: 430,
-      stack: true,
-      colorField: "type",
-      annotations,
-      scale: { color: { palette: "blues" } },
-      animate: { enter: { type: "fadeIn" } },
-    }),
-    [data, annotations]
+  const CustomLegend = useMemo(
+    () => (
+      <div>
+        {[
+          { color: "#d9d9d9", label: "Capitale iniziale" },
+          { color: "#f0f0f0", label: "Versamenti" },
+          { color: "#1890ff", label: "Interessi" },
+        ].map(({ color, label }, index) => (
+          <div
+            key={index}
+            style={{
+              display: "inline-flex",
+              alignItems: "center",
+              marginRight: 10,
+            }}
+          >
+            <div
+              style={{
+                width: "10px",
+                height: "10px",
+                backgroundColor: color,
+                marginRight: "5px",
+              }}
+            />
+            <span>{label}</span>
+          </div>
+        ))}
+      </div>
+    ),
+    []
   );
 
   return (
     <Card>
-      {isValidate ? <Column {...config} /> : <Empty style={{ height: 430 }} />}
+      {isValidate ? (
+        <div style={{ height: "500px" }}>
+          <ResponsiveContainer width="100%" height="100%">
+            <BarChart
+              data={data}
+              margin={{ top: 20, right: 30, left: 20, bottom: 5 }}
+            >
+              <CartesianGrid strokeDasharray="3 3" />
+              <XAxis dataKey="year" />
+              <YAxis tickFormatter={formatEuroChart} />
+              <Tooltip content={<CustomTooltip />} />
+              <Legend content={CustomLegend} />
+              <Bar dataKey="startingCapital" stackId="a" fill="#d9d9d9" />
+              <Bar dataKey="capitalContributions" stackId="a" fill="#f0f0f0" />
+              <Bar dataKey="accruedIinterest" stackId="a" fill="#1890ff" />
+            </BarChart>
+          </ResponsiveContainer>
+        </div>
+      ) : (
+        <Empty style={{ height: 430 }} />
+      )}
     </Card>
   );
 };

@@ -1,5 +1,6 @@
-import { useMemo } from "react";
+import { useCallback, useMemo } from "react";
 import { FutureCapitalInputDataType } from "../../InputPannel/types";
+import { DataItemChart } from "../components/OutputPannelCenter/types";
 
 export type useOutputPannelProps = {
   inputData?: FutureCapitalInputDataType;
@@ -76,6 +77,59 @@ export const useOutputPannel = ({ inputData }: useOutputPannelProps) => {
       : undefined;
   }, [accruedInterest, totalInvested]);
 
+  const calculateDataChart = useCallback(() => {
+    if (
+      !vestmentHorizon ||
+      !contributionAmount ||
+      !contributionFrequencyType ||
+      !expectedAnnualNetReturn
+    ) {
+      return [];
+    }
+
+    let partialContributionCurrentYear = 0;
+    let partialContribuitionLastYear = 0;
+    let partialInterestCurrentYear = 0;
+    let partialInterestLastYear = 0;
+    let partialCapitalCurrentYear = initialAmount;
+
+    const tableData: DataItemChart[] = [];
+
+    for (let year = 1; year <= vestmentHorizon; year++) {
+      // Aggiornamento del capitale con il versamento
+      partialCapitalCurrentYear += partialContributionCurrentYear;
+
+      // Aggiornamento dei versamenti per l'anno corrente
+      partialContributionCurrentYear +=
+        contributionAmount * (contributionFrequencyType === "monthly" ? 12 : 1);
+
+      // Calcolo degli interessi
+      partialInterestCurrentYear =
+        (initialAmount +
+          partialContribuitionLastYear +
+          partialInterestLastYear) *
+          (expectedAnnualNetReturn / 100) +
+        partialInterestLastYear;
+      partialInterestLastYear = partialInterestCurrentYear;
+      partialContribuitionLastYear = partialContributionCurrentYear;
+
+      tableData.push({
+        year,
+        startingCapital: initialAmount,
+        capitalContributions: partialContributionCurrentYear,
+        accruedIinterest: Math.round(partialInterestCurrentYear),
+      });
+    }
+
+    return tableData;
+  }, [
+    vestmentHorizon,
+    initialAmount,
+    contributionAmount,
+    contributionFrequencyType,
+    expectedAnnualNetReturn,
+  ]);
+
   return {
     initialAmount,
     contributionAmount,
@@ -88,5 +142,6 @@ export const useOutputPannel = ({ inputData }: useOutputPannelProps) => {
     endCapital,
     accruedInterestPerc,
     isValidate,
+    calculateDataChart,
   };
 };
