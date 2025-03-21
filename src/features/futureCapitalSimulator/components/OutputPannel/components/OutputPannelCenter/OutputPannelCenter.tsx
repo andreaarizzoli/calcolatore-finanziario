@@ -45,7 +45,7 @@ const OutputPannelCenter: FC<OutputPannelCenterProps> = ({ inputData }) => {
           </p>
           {[
             {
-              color: "#1890ff",
+              color: "#182eff",
               label: "Interessi",
               value: payload[2].value,
             },
@@ -96,7 +96,7 @@ const OutputPannelCenter: FC<OutputPannelCenterProps> = ({ inputData }) => {
         {[
           { color: "#d9d9d9", label: "Capitale iniziale" },
           { color: "#f0f0f0", label: "Versamenti" },
-          { color: "#1890ff", label: "Interessi" },
+          { color: "#182eff", label: "Interessi" },
         ].map(({ color, label }, index) => (
           <div
             key={index}
@@ -138,7 +138,7 @@ const OutputPannelCenter: FC<OutputPannelCenterProps> = ({ inputData }) => {
               <Legend content={CustomLegend} />
               <Bar dataKey="startingCapital" stackId="a" fill="#d9d9d9" />
               <Bar dataKey="capitalContributions" stackId="a" fill="#f0f0f0" />
-              <Bar dataKey="accruedIinterest" stackId="a" fill="#1890ff" />
+              <Bar dataKey="accruedIinterest" stackId="a" fill="#182eff" />
             </BarChart>
           </ResponsiveContainer>
         </div>
