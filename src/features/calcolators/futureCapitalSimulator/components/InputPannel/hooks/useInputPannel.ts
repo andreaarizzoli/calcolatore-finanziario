@@ -2,7 +2,7 @@ import { useCallback, useMemo, useState } from "react";
 import { FutureCapitalInputDataType } from "../types";
 import { initInputdata } from "../utils";
 import { SizeType } from "antd/es/config-provider/SizeContext";
-import { useMobile } from "../../../../../shared/utils/hooks";
+import { useMobile } from "../../../../../../shared/utils/hooks";
 
 export const useInputPannel = () => {
   const [inputData, setInputData] =

@@ -6,9 +6,20 @@ const TestingMenu = () => {
   return (
     <Flex vertical style={{ margin: "16px" }}>
       <Title title="CALCOLATORI" subTitle="Seleziona un calcolatore" />
-      <Flex>
+      <Flex
+        style={{
+          display: "flex",
+          flexDirection: "column",
+          alignContent: "center",
+          alignItems: "flex-start",
+          gap: "16px",
+        }}
+      >
         <Link to="interesseComposto">
           <Button>Calcolatore dell'interesse composto</Button>
+        </Link>
+        <Link to="fire">
+          <Button>Calcolatore FIRE</Button>
         </Link>
       </Flex>
     </Flex>

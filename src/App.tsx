@@ -1,8 +1,9 @@
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import "./App.css";
-import DashboardFutureCapitalSimulator from "./features/futureCapitalSimulator/DashboardFutureCapitalSimulator";
 import TestingMenu from "./features/testingMenu/TestingMenu";
 import { ConfigProvider } from "antd";
+import DashboardFutureCapitalSimulator from "./features/calcolators/futureCapitalSimulator/DashboardFutureCapitalSimulator";
+import DashboardFireCalcolator from "./features/calcolators/fireCalcolator/pages/Dashboard/DashboardFireCalcolator";
 
 function App() {
   return (
@@ -36,6 +37,7 @@ function App() {
                 path="/interesseComposto"
                 element={<DashboardFutureCapitalSimulator />}
               />
+              <Route path="/fire" element={<DashboardFireCalcolator />} />
             </Routes>
           </div>
         </BrowserRouter>

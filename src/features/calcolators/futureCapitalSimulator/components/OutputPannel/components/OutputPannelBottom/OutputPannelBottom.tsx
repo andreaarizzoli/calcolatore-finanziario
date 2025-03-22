@@ -1,7 +1,6 @@
-import { Card } from "antd";
 import { FC } from "react";
-import { LabelBoxCard } from "../../../../../../shared/components";
-import { useFormat } from "../../../../../../shared/utils/hooks";
+import { LabelBoxCard } from "../../../../../../../shared/components";
+import { useFormat } from "../../../../../../../shared/utils/hooks";
 import { useOutputPannel } from "../../hooks.ts";
 import { OutputPannelBottomProps } from "./types";
 

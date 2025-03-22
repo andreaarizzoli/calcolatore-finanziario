@@ -10,7 +10,7 @@ import {
   XAxis,
   YAxis,
 } from "recharts";
-import { useFormat } from "../../../../../../shared/utils/hooks/useFormat";
+import { useFormat } from "../../../../../../../shared/utils/hooks/useFormat";
 import { useOutputPannel } from "../../hooks.ts";
 import { DataItemChart, OutputPannelCenterProps } from "./types";
 
