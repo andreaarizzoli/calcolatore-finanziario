@@ -1,4 +1,4 @@
-import { Card, Col, Divider, Row, Typography } from "antd";
+import { Card, Col, Row, Typography } from "antd";
 import { FC, useMemo } from "react";
 import { useMobile } from "../../utils/hooks";
 import { LabelBoxWrapper, TextContainer, TitleStyle } from "./style";
@@ -13,46 +13,43 @@ const LabelBoxCard: FC<LabelBoxProps> = ({ labelList }) => {
     if (isMobile || isTablet) {
       return 12;
     } else {
-      return Math.floor(24 / labelList.length);
+      return 6;
     }
   }, [isMobile, isTablet, labelList]);
 
   const labelBoxList = useMemo(() => {
-    const list = labelList.map((label, index) => {
-      const { title, value } = label;
-      let divider = true;
-      if (labelList.length === index + 1) {
-        divider = false;
-      }
-      if (responsiveView === 12 && index % 2) {
-        divider = false;
-      }
+    const groupedList = [];
 
-      return (
-        <Col key={`${index}-${label.title}`} span={responsiveView}>
-          <LabelBoxWrapper>
-            <TextContainer vertical>
-              <Text type="secondary">{title}</Text>
-              <TitleStyle level={4} style={{ margin: 0 }}>
-                {value}
-              </TitleStyle>
-            </TextContainer>
-            {divider && (
-              <Divider
-                type="vertical"
-                style={{ height: "50px", margin: "0px" }}
-              />
-            )}
-          </LabelBoxWrapper>
-        </Col>
+    for (let i = 0; i < labelList.length; i += 4) {
+      const rowItems = labelList.slice(i, i + 4).map((label, index) => {
+        const { title, value } = label;
+        return (
+          <Col key={`${i + index}-${label.title}`} span={responsiveView}>
+            <LabelBoxWrapper>
+              <TextContainer vertical>
+                <Text type="secondary">{title}</Text>
+                <TitleStyle level={4} style={{ margin: 0 }}>
+                  {value}
+                </TitleStyle>
+              </TextContainer>
+            </LabelBoxWrapper>
+          </Col>
+        );
+      });
+
+      groupedList.push(
+        <Row key={`row-${i}`} gutter={[16, 16]} style={{ width: "100%" }}>
+          {rowItems}
+        </Row>
       );
-    });
-    return list;
+    }
+
+    return groupedList;
   }, [labelList, responsiveView]);
 
   return (
     <Card>
-      <Row gutter={[0, 16]}>{labelBoxList}</Row>
+      <Row gutter={[16, 16]}>{labelBoxList}</Row>
     </Card>
   );
 };

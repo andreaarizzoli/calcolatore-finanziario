@@ -52,7 +52,7 @@ const OutputPannelCenter: FC<OutputPannelCenterProps> = ({ inputData }) => {
             {
               color: "#f0f0f0",
               label: "Versamenti",
-              value: payload[1].value,
+              value: payload[1].value ?? 0,
             },
             {
               color: "#d9d9d9",

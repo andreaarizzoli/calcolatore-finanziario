@@ -9,13 +9,17 @@ export type OutputPannelTopProps = {
 };
 
 const OutputPannelTop: FC<OutputPannelTopProps> = ({ inputData }) => {
-  const { formatEuro, formatPercent } = useFormat();
+  const { formatEuro, formatPercent, formatYear } = useFormat();
   const {
     totalInvested,
     accruedInterest,
     endCapital,
     accruedInterestPerc,
     isValidate,
+    initialAmount,
+    totalContributions,
+    vestmentHorizon,
+    expectedAnnualNetReturn,
   } = useOutputPannel({
     inputData,
   });
@@ -23,6 +27,22 @@ const OutputPannelTop: FC<OutputPannelTopProps> = ({ inputData }) => {
   return (
     <LabelBoxCard
       labelList={[
+        {
+          title: "Capitale Iniziale",
+          value: isValidate ? formatEuro(initialAmount) : "-",
+        },
+        {
+          title: "Versamenti aggiuntivi",
+          value: isValidate ? formatEuro(totalContributions) : "-",
+        },
+        {
+          title: "Orizzonte",
+          value: isValidate ? formatYear(vestmentHorizon) : "-",
+        },
+        {
+          title: "Rendimento Annuo atteso",
+          value: isValidate ? formatPercent(expectedAnnualNetReturn) : "-",
+        },
         {
           title: "Capitale Investito",
           value: isValidate ? formatEuro(totalInvested) : "-",

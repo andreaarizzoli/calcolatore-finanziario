@@ -17,7 +17,7 @@ export const useOutputPannel = ({ inputData }: useOutputPannelProps) => {
 
   const isValidate = useMemo(() => {
     return (
-      !!contributionAmount &&
+      contributionAmount >= 0 &&
       !!contributionFrequencyType &&
       !!vestmentHorizon &&
       !!expectedAnnualNetReturn &&
@@ -40,7 +40,7 @@ export const useOutputPannel = ({ inputData }: useOutputPannelProps) => {
   const totalContributions = useMemo(() => {
     return contributionAmount && vestmentHorizon
       ? yearlyContribution * vestmentHorizon
-      : "-";
+      : 0;
   }, [yearlyContribution, vestmentHorizon, contributionAmount]);
 
   const totalInvested = useMemo(() => {
@@ -80,7 +80,6 @@ export const useOutputPannel = ({ inputData }: useOutputPannelProps) => {
   const calculateDataChart = useCallback(() => {
     if (
       !vestmentHorizon ||
-      !contributionAmount ||
       !contributionFrequencyType ||
       !expectedAnnualNetReturn
     ) {
