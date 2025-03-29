@@ -26,6 +26,9 @@ export const useMobile: UseMobile = () => {
   const [isDesktop, setisDesktop] = useState<boolean>(false);
   const [isDesktopMedium, setisDesktopMedium] = useState<boolean>(false);
   const [isDesktopLarge, setIsDesktopLarge] = useState<boolean>(false);
+  const [inputSizeResponsive, setInputSizeResponsive] = useState<
+    "small" | "middle"
+  >("middle");
 
   const handleDevice = useCallback<VoidEvent>(() => {
     setIsMobile(window.innerWidth < breakpoints.mobile);
@@ -36,6 +39,7 @@ export const useMobile: UseMobile = () => {
     setisDesktop(window.innerWidth >= breakpoints.desktopLow);
     setisDesktopMedium(window.innerWidth >= breakpoints.desktopMid);
     setIsDesktopLarge(window.innerWidth >= breakpoints.desktopLarge);
+    handleInputSizeResponsive();
   }, []);
 
   useEffect(() => {
@@ -47,11 +51,22 @@ export const useMobile: UseMobile = () => {
     return () => window.self.removeEventListener("resize", handleDevice);
   }, []);
 
+  const handleInputSizeResponsive = useCallback(() => {
+    if (isMobile || isTablet) {
+      setInputSizeResponsive("small");
+    } else if (isDesktop || isDesktopMedium || isDesktopLarge) {
+      setInputSizeResponsive("middle");
+    } else {
+      setInputSizeResponsive("middle");
+    }
+  }, [isMobile, isTablet, isDesktop, isDesktopMedium, isDesktopLarge]);
+
   return {
     isMobile,
     isTablet,
     isDesktop,
     isDesktopMedium,
     isDesktopLarge,
+    inputSizeResponsive,
   };
 };

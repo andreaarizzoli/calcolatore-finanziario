@@ -3,7 +3,7 @@ import "./App.css";
 import TestingMenu from "./features/testingMenu/TestingMenu";
 import { ConfigProvider } from "antd";
 import DashboardFutureCapitalSimulator from "./features/calcolators/futureCapitalSimulator/DashboardFutureCapitalSimulator";
-import DashboardFireCalcolator from "./features/calcolators/fireCalcolator/pages/Dashboard/DashboardFireCalcolator";
+import CapitalIncomeCalculator from "./features/calcolators/CapitalIncomeCalculator/pages/Dashboard/ CapitalIncomeCalculator";
 
 function App() {
   return (
@@ -37,7 +37,10 @@ function App() {
                 path="/interesseComposto"
                 element={<DashboardFutureCapitalSimulator />}
               />
-              <Route path="/fire" element={<DashboardFireCalcolator />} />
+              <Route
+                path="/RenditaDaCapitale"
+                element={<CapitalIncomeCalculator />}
+              />
             </Routes>
           </div>
         </BrowserRouter>
