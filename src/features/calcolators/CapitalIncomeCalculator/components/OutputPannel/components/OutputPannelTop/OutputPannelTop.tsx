@@ -13,7 +13,8 @@ const OutputPannelTop = () => {
     );
   }
 
-  const { targetCapital, inputCapitalIncomeData } = context;
+  const { inputCapitalIncomeData } = context;
+
   const { annualExpenses, expectedAnnualNetReturn, isCustom } =
     inputCapitalIncomeData;
 
@@ -29,7 +30,19 @@ const OutputPannelTop = () => {
     } else {
       return "Moderato";
     }
-  }, [expectedAnnualNetReturn]);
+  }, [expectedAnnualNetReturn, isCustom]);
+
+  const targetCapital = useMemo(() => {
+    if (inputCapitalIncomeData.expectedAnnualNetReturn > 0) {
+      const capital =
+        (inputCapitalIncomeData.annualExpenses /
+          inputCapitalIncomeData.expectedAnnualNetReturn) *
+        100;
+      return capital;
+    } else {
+      return undefined;
+    }
+  }, [inputCapitalIncomeData]);
 
   return (
     <LabelBoxCard

@@ -12,7 +12,6 @@ import { defaultInputCapitalIncomeData } from "../utils";
 
 interface CapitalIncomeContextType {
   inputCapitalIncomeData: CapitalIncomeInputDataType;
-  targetCapital: number | undefined;
   setInputCapitalIncomeData: Dispatch<
     SetStateAction<CapitalIncomeInputDataType>
   >;
@@ -26,25 +25,12 @@ const CapitalIncomeProvider: FC<{ children: ReactNode }> = ({ children }) => {
   const [inputCapitalIncomeData, setInputCapitalIncomeData] =
     useState<CapitalIncomeInputDataType>(defaultInputCapitalIncomeData);
 
-  const targetCapital = useMemo(() => {
-    if (inputCapitalIncomeData.expectedAnnualNetReturn > 0) {
-      const capital =
-        (inputCapitalIncomeData.annualExpenses /
-          inputCapitalIncomeData.expectedAnnualNetReturn) *
-        100;
-      return capital;
-    } else {
-      return undefined;
-    }
-  }, [inputCapitalIncomeData]);
-
   const value = useMemo(
     () => ({
       inputCapitalIncomeData,
-      targetCapital,
       setInputCapitalIncomeData,
     }),
-    [inputCapitalIncomeData, targetCapital]
+    [inputCapitalIncomeData]
   );
 
   return (

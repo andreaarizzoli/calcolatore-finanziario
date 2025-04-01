@@ -11,9 +11,10 @@ export const defaultInputCapitalIncomeData: CapitalIncomeInputDataType = {
 };
 
 export const defaultOutputCapitalIncomeData: CapitalIncomeOutputDataType = {
-  targetCapital: 1000000,
-  netAnnualReturn: 30000,
-  expectedAnnualNetReturn: 3,
+  conservative: 1000000,
+  moderate: 750000,
+  aggressive: 545454.5454545454,
+  custom: undefined,
 };
 
 export const defaultCapitalIncomeData: CapitalIncomeDataType = {

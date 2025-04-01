@@ -29,11 +29,15 @@ const useCapitalIncomeInputPannel = () => {
   const { inputCapitalIncomeData, setInputCapitalIncomeData } = context;
 
   const handleCapitalIncomeOnChange = useCallback(
-    (name: string, newValue: number | string | undefined | boolean) => {
+    (
+      name: string,
+      newValue: number | string | undefined | boolean,
+      isCustom?: boolean
+    ) => {
       setInputCapitalIncomeData({
         ...inputCapitalIncomeData,
         [name]: newValue,
-        isCustom: isCustomExpectedAnnualNetReturn,
+        isCustom: isCustom ?? inputCapitalIncomeData.isCustom,
       });
     },
     [
@@ -46,7 +50,7 @@ const useCapitalIncomeInputPannel = () => {
   const handleExpectedAnnualNetReturn = useCallback(
     (isCustom: boolean, value: number | undefined) => {
       setIsCustomExpectedAnnualNetReturn(isCustom);
-      handleCapitalIncomeOnChange("expectedAnnualNetReturn", value);
+      handleCapitalIncomeOnChange("expectedAnnualNetReturn", value, isCustom);
     },
     [handleCapitalIncomeOnChange, setIsCustomExpectedAnnualNetReturn]
   );
