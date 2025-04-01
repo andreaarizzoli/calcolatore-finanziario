@@ -3,7 +3,7 @@ import "./App.css";
 import TestingMenu from "./features/testingMenu/TestingMenu";
 import { ConfigProvider } from "antd";
 import DashboardFutureCapitalSimulator from "./features/calcolators/futureCapitalSimulator/DashboardFutureCapitalSimulator";
-import CapitalIncomeCalculator from "./features/calcolators/CapitalIncomeCalculator/pages/Dashboard/ CapitalIncomeCalculator";
+import DashboardCapitalIncomeCalculator from "./features/calcolators/CapitalIncomeCalculator/pages/Dashboard/DashboardCapitalIncomeCalculator";
 
 function App() {
   return (
@@ -39,7 +39,7 @@ function App() {
               />
               <Route
                 path="/RenditaDaCapitale"
-                element={<CapitalIncomeCalculator />}
+                element={<DashboardCapitalIncomeCalculator />}
               />
             </Routes>
           </div>

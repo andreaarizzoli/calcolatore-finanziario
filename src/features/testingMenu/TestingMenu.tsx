@@ -19,7 +19,7 @@ const TestingMenu = () => {
           <Button>Calcolatore dell'interesse composto</Button>
         </Link>
         <Link to="RenditaDaCapitale">
-          <Button>Calcolatore FIRE</Button>
+          <Button>Calcolatore rendita da capitale</Button>
         </Link>
       </Flex>
     </Flex>

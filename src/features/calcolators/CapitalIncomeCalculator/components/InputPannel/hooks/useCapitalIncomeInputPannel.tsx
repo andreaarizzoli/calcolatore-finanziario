@@ -1,12 +1,9 @@
 import { SizeType } from "antd/es/config-provider/SizeContext";
-import React, { useCallback, useMemo, useState } from "react";
-import { useMobile } from "../../../../../../../../shared/utils/hooks";
-import { CapitalIncomeInputDataType } from "../types";
-import { defaultInputCapitalIncomeData } from "../utils";
+import { useCallback, useContext, useMemo, useState } from "react";
+import { useMobile } from "../../../../../../shared/utils/hooks";
+import { CapitalIncomeContext } from "../../../provider/CapitalIncomeProvider";
 
 const useCapitalIncomeInputPannel = () => {
-  const [inputCapitalIncomeData, setInputCapitalIncomeData] =
-    useState<CapitalIncomeInputDataType>(defaultInputCapitalIncomeData);
   const [isCustomExpectedAnnualNetReturn, setIsCustomExpectedAnnualNetReturn] =
     useState<boolean>(false);
   const { isMobile, isTablet, isDesktop, isDesktopMedium, isDesktopLarge } =
@@ -21,14 +18,29 @@ const useCapitalIncomeInputPannel = () => {
     }
   }, [isMobile, isTablet, isDesktop, isDesktopMedium, isDesktopLarge]);
 
+  const context = useContext(CapitalIncomeContext);
+
+  if (!context) {
+    throw new Error(
+      "CapitalIncomeInput deve essere usato dentro CapitalIncomeProvider"
+    );
+  }
+
+  const { inputCapitalIncomeData, setInputCapitalIncomeData } = context;
+
   const handleCapitalIncomeOnChange = useCallback(
-    (name: string, newValue: number | string | undefined) => {
+    (name: string, newValue: number | string | undefined | boolean) => {
       setInputCapitalIncomeData({
         ...inputCapitalIncomeData,
         [name]: newValue,
+        isCustom: isCustomExpectedAnnualNetReturn,
       });
     },
-    [setInputCapitalIncomeData, inputCapitalIncomeData]
+    [
+      setInputCapitalIncomeData,
+      inputCapitalIncomeData,
+      isCustomExpectedAnnualNetReturn,
+    ]
   );
 
   const handleExpectedAnnualNetReturn = useCallback(

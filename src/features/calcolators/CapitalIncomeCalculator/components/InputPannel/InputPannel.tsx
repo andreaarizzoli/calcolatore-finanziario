@@ -1,7 +1,7 @@
 import { Flex, Form, InputNumber, Radio, Tooltip } from "antd";
-import { InputPannelCard } from "../../../../../../../shared/components";
+import { InputPannelCard } from "../../../../../shared/components";
+import { defaultInputCapitalIncomeData } from "../../utils";
 import useCapitalIncomeInputPannel from "./hooks";
-import { defaultInputCapitalIncomeData } from "./utils";
 
 const InputPannel = () => {
   const {
