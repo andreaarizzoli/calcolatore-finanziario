@@ -21,6 +21,9 @@ const TestingMenu = () => {
         <Link to="RenditaDaCapitale">
           <Button>Calcolatore rendita da capitale</Button>
         </Link>
+        <Link to="portafoglioModello">
+          <Button>Simulatore creazione portafoglio modello</Button>
+        </Link>
       </Flex>
     </Flex>
   );

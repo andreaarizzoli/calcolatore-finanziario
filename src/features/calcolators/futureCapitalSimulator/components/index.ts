@@ -1,1 +1,1 @@
-export * from "../DashboardFutureCapitalSimulator";
+export * from "../pages/Dashboard/DashboardFutureCapitalSimulator";

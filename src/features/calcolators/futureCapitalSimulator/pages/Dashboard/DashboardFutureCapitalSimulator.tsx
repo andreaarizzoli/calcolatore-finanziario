@@ -1,9 +1,9 @@
 import { Col, Flex, Row, Space } from "antd";
 import { useState } from "react";
-import { PageTitle } from "../../../shared/components";
-import InputPannel from "./components/InputPannel/InputPannel";
-import { FutureCapitalInputDataType } from "./components/InputPannel/types";
-import OutputPannel from "./components/OutputPannel/OutputPannel";
+import { PageTitle } from "../../../../../shared/components";
+import InputPannel from "../../components/InputPannel/InputPannel";
+import { FutureCapitalInputDataType } from "../../components/InputPannel/types";
+import OutputPannel from "../../components/OutputPannel/OutputPannel";
 
 const DashboardFutureCapitalSimulator = () => {
   const [inputData, setInputData] = useState<FutureCapitalInputDataType>();

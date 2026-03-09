@@ -25,7 +25,7 @@ const OutputPannelChart = () => {
               data={tableData}
               margin={{
                 top: 20,
-                right: isMobile ? 40 : 80,
+                right: isMobile ? 40 : 100,
                 left: isMobile ? 20 : 60,
                 bottom: 5,
               }}

@@ -3,7 +3,7 @@ import { CalcolatorDashboard } from "../../../../../shared/components";
 import InputPannel from "../../components/InputPannel";
 import OutputPannel from "../../components/OutputPannel";
 import CapitalIncomeProvider from "../../provider/CapitalIncomeProvider";
-import FaqPannel from "../../components/FaqPannel";
+import CapitalIncomeFaq from "../../components/CapitalIncomeFaq";
 
 const DashboardCapitalIncomeCalculator = () => {
   return (
@@ -17,8 +17,10 @@ const DashboardCapitalIncomeCalculator = () => {
           inputPannel={<InputPannel />}
           outputPannel={<OutputPannel />}
         />
+        <Flex style={{ paddingTop: "24px" }}>
+          <CapitalIncomeFaq />
+        </Flex>
       </Flex>
-      <FaqPannel />
     </CapitalIncomeProvider>
   );
 };

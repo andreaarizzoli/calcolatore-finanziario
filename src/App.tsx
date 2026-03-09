@@ -2,8 +2,9 @@ import { BrowserRouter, Route, Routes } from "react-router-dom";
 import "./App.css";
 import TestingMenu from "./features/testingMenu/TestingMenu";
 import { ConfigProvider } from "antd";
-import DashboardFutureCapitalSimulator from "./features/calcolators/futureCapitalSimulator/DashboardFutureCapitalSimulator";
+import DashboardFutureCapitalSimulator from "./features/calcolators/futureCapitalSimulator/pages/Dashboard/DashboardFutureCapitalSimulator";
 import DashboardCapitalIncomeCalculator from "./features/calcolators/CapitalIncomeCalculator/pages/Dashboard/DashboardCapitalIncomeCalculator";
+import DashboardPortfolioCalculator from "./features/calcolators/PortfolioCalculator/pages/Dashboard/DashboardPortfolioCalculator";
 
 function App() {
   return (
@@ -38,8 +39,12 @@ function App() {
                 element={<DashboardFutureCapitalSimulator />}
               />
               <Route
-                path="/RenditaDaCapitale"
+                path="/renditaDaCapitale"
                 element={<DashboardCapitalIncomeCalculator />}
+              />
+              <Route
+                path="/portafoglioModello"
+                element={<DashboardPortfolioCalculator />}
               />
             </Routes>
           </div>

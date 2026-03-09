@@ -1,10 +1,10 @@
 import { InfoCircleOutlined } from "@ant-design/icons";
 import { Card, Col, Collapse, Row, Space, Typography } from "antd";
-import { RowStayled, SpaceStayled } from "./style";
 import { useMemo } from "react";
+import { FaqPannel } from "../../../../../shared/components";
 
-const FaqPannel = () => {
-  const faqContent = [
+const CapitalIncomeFaq = () => {
+  const CapitalIncomeFaqContent = [
     {
       key: "1",
       label: "Perché devo inserire le spese annuali?",
@@ -28,34 +28,7 @@ const FaqPannel = () => {
     },
   ];
 
-  const generateFaq = useMemo(() => {
-    return faqContent.map(({ key, label, extra, content }) => (
-      <Col key={key} xs={24} md={8}>
-        <Card>
-          <Collapse
-            ghost
-            size="small"
-            items={[
-              {
-                key,
-                label,
-                extra,
-                children: (
-                  <SpaceStayled>
-                    <Typography.Text type="secondary">
-                      {content}
-                    </Typography.Text>
-                  </SpaceStayled>
-                ),
-              },
-            ]}
-          />
-        </Card>
-      </Col>
-    ));
-  }, [faqContent]);
-
-  return <RowStayled gutter={[24, 24]}>{generateFaq}</RowStayled>;
+  return <FaqPannel faqPallelContent={CapitalIncomeFaqContent} />;
 };
 
-export default FaqPannel;
+export default CapitalIncomeFaq;
